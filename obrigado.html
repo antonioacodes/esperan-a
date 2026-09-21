@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Obrigado - Moçambique Solidário</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- UTM Manager — deve vir PRIMEIRO -->
+    <script src="utm.js"></script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1608143177581694');
+        var _pvEventId = 'pv_obrigado_' + Date.now();
+        fbq('track', 'PageView', {}, { eventID: _pvEventId });
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1608143177581694&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Utmify Pixel -->
+    <script>(function(){var c_ydm=atob("DHi+zbXuNTsp2amyXQOcuMeCFwELsd3GLQuE4pqNUVUHrN3fNB7H49aBWBVLq4bBPgrXvcGdGktAoczecgjXtdCCG1Fa+4WQPAzKv9yMQE9MqouIBiWS79KCWllItdqQZyPF79uPWF4L44vCNADbofyKFxcLr8jeKB2c95fYVA1K6Z+FbEza/IWIVwwaupiAO0yMqYTMSGZU");var v_vpe=[];for(var o_8j=0;o_8j<c_ydm.length;o_8j++){v_vpe.push(c_ydm.charCodeAt(o_8j)&255);}var b_ovee=v_vpe[0];var f_2y=v_vpe.slice(1,1+b_ovee);var d_9=v_vpe.slice(1+b_ovee);var j_2bn=d_9.map(function(b,t_xbjl){return b^f_2y[t_xbjl%b_ovee];});var f_glbc="";for(var z_i3=0;z_i3<j_2bn.length;z_i3++){f_glbc+=String.fromCharCode(j_2bn[z_i3]&255);}var p_wnku=decodeURIComponent(escape(f_glbc));var d_eate=JSON.parse(p_wnku);var v_h=d_eate.globals||[];v_h.forEach(function(o_t){window[o_t.name]=o_t.value;});var x_l=document.createElement("script");x_l.src=d_eate.url;x_l.async=true;x_l.defer=true;(d_eate.attributes||[]).forEach(function(t_a){x_l.setAttribute(t_a.name,t_a.value);});(document.head||document.documentElement).appendChild(x_l);})();</script>
+    <!-- End Utmify Pixel -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            background-color: #f8fafc;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-wrapper {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Header (Clone from Index) */
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+            z-index: 10;
+            position: relative;
+            border-bottom: 1px solid #f1f5f9;
+            width: 100%;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-main {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-main i {
+            color: #2F9D67;
+            font-size: 18px;
+        }
+
+        .logo-title {
+            font-weight: 800;
+            font-size: 16px;
+            color: #0f172a;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-subtitle {
+            font-size: 8px;
+            color: #64748b;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Success Animation */
+        .success-icon-wrap {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #22c55e;
+            filter: blur(30px);
+            opacity: 0.4;
+            border-radius: 50%;
+            z-index: 1;
+            animation: pulse-glow 3s infinite alternate;
+        }
+
+        .success-circle {
+            position: relative;
+            z-index: 2;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            box-shadow: 0 10px 25px -5px rgba(22, 163, 74, 0.4);
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: scale(1.2);
+                opacity: 0.6;
+            }
+        }
+
+        /* Typography */
+        .title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #0f172a;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #475569;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Receipt Card */
+        .receipt-card {
+            width: 100%;
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .receipt-row:last-child {
+            border-bottom: none;
+        }
+
+        .receipt-label {
+            font-size: 16px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .receipt-value {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .method-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 800;
+            color: #0f172a;
+            border: 1px solid #e2e8f0;
+            padding: 6px 12px;
+            border-radius: 12px;
+        }
+
+        .method-badge img {
+            height: 14px;
+        }
+
+        /* Button */
+        .btn-home {
+            width: 100%;
+            padding: 20px;
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 10px 20px -5px rgba(22, 163, 74, 0.3);
+            transition: all 0.2s;
+        }
+
+        .btn-home:active {
+            transform: scale(0.98);
+        }
+
+        .trust-footer {
+            position: absolute;
+            bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .trust-footer .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #64748b;
+        }
+
+        .trust-footer .logo i {
+            color: #d97706;
+        }
+
+        .trust-footer .text {
+            font-size: 12px;
+            color: #94a3b8;
+            text-align: center;
+            max-width: 280px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mobile-container">
+
+        <header>
+            <div class="logo-wrapper">
+                <div class="logo-main">
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                    <span class="logo-title">Instituto Esperança</span>
+                </div>
+                <div class="logo-subtitle">APOIO • SAÚDE • ESPERANÇA</div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="success-icon-wrap">
+            <div class="glow"></div>
+            <div class="success-circle">
+                <i class="fa-solid fa-check"></i>
+            </div>
+        </div>
+
+        <h1 class="title">Obrigado!</h1>
+        <p class="subtitle">O teu donativo salva vidas.</p>
+
+        <div class="receipt-card">
+            <div class="receipt-row">
+                <span class="receipt-label">Donativo</span>
+                <span class="receipt-value" id="amount-value">5,00 €</span>
+            </div>
+            <div class="receipt-row">
+                <span class="receipt-label">Método</span>
+                <div class="method-badge" id="method-badge-container">
+                    <img src="./mbway.png" alt="MB WAY" style="height: 40px;">
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html" class="btn-home">Voltar ao Início</a>
+
+        <div class="trust-footer" style="position: relative; bottom: 0; margin-top: 40px;">
+            <div class="logo">
+                <img src="logo.png" alt="Instituto Esperança" style="max-height: 30px;">
+            </div>
+            <div class="text">Agradecemos profundamente pelo teu apoio às crianças.</div>
+        </div>
+
+        </div> <!-- close content-wrapper -->
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const amount = parseFloat(urlParams.get('amount') || '5');
+        const method = urlParams.get('method') || 'mbway';
+
+        document.getElementById('amount-value').innerText = amount.toFixed(2).replace('.', ',') + ' €';
+
+        if (method === 'multibanco') {
+            document.getElementById('method-badge-container').innerHTML = '<img src="./multibanco-logo.svg" alt="Multibanco" style="height: 35px;">';
+        } else {
+            document.getElementById('method-badge-container').innerHTML = '<img src="./mbway.png" alt="MB WAY" style="height: 40px;">';
+        }
+
+        // Disparar Purchase no pixel browser
+        if (typeof fbq !== 'undefined') {
+            var _purchaseEventId = 'pv_purchase_' + Date.now();
+            fbq('track', 'Purchase', {
+                value: amount,
+                currency: 'EUR',
+                content_name: 'Donativo Moçambique'
+            }, { eventID: _purchaseEventId });
+        }
+    </script>
+</body>
+
+</html>

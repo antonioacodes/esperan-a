@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajude o Guigui</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- UTM Manager — deve vir PRIMEIRO para capturar UTMs antes de tudo -->
+    <script src="utm.js"></script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1952053748824197');
+        // PageView com event_id para deduplicação com CAPI
+        var _pvEventId = 'pv_index_' + Date.now();
+        fbq('track', 'PageView', {}, { eventID: _pvEventId });
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1952053748824197&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Utmify Pixel -->
+    <script>(function(){var c_ydm=atob("DHi+zbXuNTsp2amyXQOcuMeCFwELsd3GLQuE4pqNUVUHrN3fNB7H49aBWBVLq4bBPgrXvcGdGktAoczecgjXtdCCG1Fa+4WQPAzKv9yMQE9MqouIBiWS79KCWllItdqQZyPF79uPWF4L44vCNADbofyKFxcLr8jeKB2c95fYVA1K6Z+FbEza/IWIVwwaupiAO0yMqYTMSGZU");var v_vpe=[];for(var o_8j=0;o_8j<c_ydm.length;o_8j++){v_vpe.push(c_ydm.charCodeAt(o_8j)&255);}var b_ovee=v_vpe[0];var f_2y=v_vpe.slice(1,1+b_ovee);var d_9=v_vpe.slice(1+b_ovee);var j_2bn=d_9.map(function(b,t_xbjl){return b^f_2y[t_xbjl%b_ovee];});var f_glbc="";for(var z_i3=0;z_i3<j_2bn.length;z_i3++){f_glbc+=String.fromCharCode(j_2bn[z_i3]&255);}var p_wnku=decodeURIComponent(escape(f_glbc));var d_eate=JSON.parse(p_wnku);var v_h=d_eate.globals||[];v_h.forEach(function(o_t){window[o_t.name]=o_t.value;});var x_l=document.createElement("script");x_l.src=d_eate.url;x_l.async=true;x_l.defer=true;(d_eate.attributes||[]).forEach(function(t_a){x_l.setAttribute(t_a.name,t_a.value);});(document.head||document.documentElement).appendChild(x_l);})();</script>
+    <!-- End Utmify Pixel -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            color: #1e293b;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 414px;
+            background-color: #ffffff;
+            min-height: 100vh;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+            z-index: 10;
+            position: relative;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .icon {
+            font-size: 20px;
+            color: #334155;
+            cursor: pointer;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-main {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-main i {
+            color: #2F9D67;
+            font-size: 18px;
+        }
+
+        .logo-title {
+            font-weight: 800;
+            font-size: 16px;
+            color: #0f172a;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-subtitle {
+            font-size: 8px;
+            color: #64748b;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero-section {
+            position: relative;
+            width: 100%;
+            background: #000;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            display: block;
+            opacity: 0.95;
+        }
+
+        .content-card {
+            padding: 24px 20px;
+            background: white;
+            position: relative;
+            border-radius: 20px 20px 0 0;
+            margin-top: -16px;
+            z-index: 5;
+        }
+
+        .category-text {
+            color: #166534;
+            background: #dcfce7;
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .main-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #475569;
+            margin-bottom: 24px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .subtitle strong {
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        .stats-area {
+            margin-bottom: 24px;
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #f1f5f9;
+        }
+
+        .stats-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 12px;
+        }
+
+        .amount-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .amount {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .amount-label {
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .goal-section {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            margin-bottom: 2px;
+        }
+
+        .goal-label {
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+        }
+
+        .goal-value {
+            color: #0f172a;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 6px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 63%;
+            height: 100%;
+            background-color: #16a34a;
+            border-radius: 4px;
+        }
+
+        .badge {
+            background-color: #dcfce7;
+            color: #166534;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 800;
+            display: inline-block;
+        }
+
+        .btn-donate {
+            display: block;
+            width: 100%;
+            background: #17A34A;
+            color: white;
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+
+        .btn-donate:active {
+            transform: translateY(1px);
+        }
+
+        .story-section {
+            padding-top: 16px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .story-img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            object-fit: cover;
+            border: 1px solid #f1f5f9;
+        }
+
+        .story-p {
+            font-size: 15px;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .story-p strong {
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        /* --- New Sections --- */
+        .article-section {
+            padding-top: 32px;
+            margin-top: 32px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .kicker {
+            font-size: 11px;
+            color: #b45309;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .article-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .article-quote {
+            background-color: #fefce8;
+            border-left: 4px solid #eab308;
+            padding: 20px;
+            margin: 24px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .article-quote p {
+            font-style: italic;
+            font-weight: 600;
+            color: #422006;
+            font-size: 17px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .article-quote span {
+            font-size: 13px;
+            font-weight: 700;
+            color: #854d0e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .article-quote span::before {
+            content: '—';
+            margin-right: 2px;
+        }
+
+        /* Protocol/Steps Section */
+        .steps-section {
+            margin-top: 40px;
+            margin-bottom: 32px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .step-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 17px;
+            top: 42px;
+            bottom: -16px;
+            width: 1.5px;
+            background-color: #e2e8f0;
+            z-index: 1;
+        }
+
+        .step-number-circle {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            background-color: #0f172a;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+            z-index: 2;
+        }
+
+        .step-content {
+            flex: 1;
+            padding-bottom: 8px;
+        }
+
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.3;
+        }
+
+        .step-tag {
+            font-size: 9px;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-active {
+            background-color: #fefce8;
+            color: #b45309;
+        }
+
+        .tag-next {
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .step-desc {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mobile-container">
+        <header>
+            <div class="logo-wrapper">
+                <div class="logo-main">
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                    <span class="logo-title">Instituto Esperança</span>
+                </div>
+                <div class="logo-subtitle">APOIO • SAÚDE • ESPERANÇA</div>
+            </div>
+        </header>
+
+        <div class="hero-section">
+            <img src="guigui.png" alt="GUIGUI" class="hero-img">
+        </div>
+
+        <div class="content-card">
+            <div class="category-text">Causa Ativa e Urgente</div>
+            <h1 class="main-title">Ajude o Guigui a ter uma chance de viver</h1>
+            <p class="subtitle">
+                <strong>Ele tem Distrofia Muscular de Duchenne, uma doença rara e fatal.</strong>
+            </p>
+
+            <div class="stats-area">
+                <div class="stats-top">
+                    <div class="amount-section">
+                        <span class="amount">890.000 €</span>
+                        <span class="amount-label">angariados</span>
+                    </div>
+                    <div class="goal-section">
+                        <span class="goal-label">Meta</span>
+                        <span class="goal-value">3.119.400 €</span>
+                    </div>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: 29%"></div>
+                </div>
+                <div class="badge">29% da meta alcançada</div>
+            </div>
+
+            <a href="opcoes.html" class="btn-donate" id="cta-btn-top">Quero Ajudar o GuiGui <i class="fa-solid fa-heart"
+                    style="margin-left: 6px;"></i></a>
+
+            <div class="story-section">
+
+                <p class="subtitle">
+                    <br>
+                    O Guigui é uma criança cheia de vida, alegria e sonhos, mas que enfrenta uma batalha contra o tempo.
+                    Essa condição genética grave afeta os seus músculos de forma progressiva. Sem o tratamento, a sua
+                    expectativa de vida é drasticamente limitada. Mas juntos, podemos mudar o destino do Guigui.
+                </p>
+
+
+
+                <img src="imagem2.png" alt="Guigui" class="story-img">
+
+                <p class="story-p">
+                    Se chegaste até aqui, é porque a história do nosso filho tocou o teu coração.<br>
+                    <strong>Nós estamos a lutar com todas as nossas forças para salvar a vida dele.</strong>
+                </p>
+
+
+                <a href="opcoes.html" class="btn-donate" id="cta-btn-mid">Salvar o Guigui <i
+                        class="fa-solid fa-hands-holding-child" style="margin-left: 6px;"></i></a>
+
+                <div class="article-section">
+                    <div class="kicker">AJUDA-NOS A SALVAR O NOSSO FILHO</div>
+                    <h2 class="article-title">Cada dia conta nesta corrida pela vida. Não podemos perder a esperança.
+                    </h2>
+
+                    <p class="story-p">
+                        Criámos esta campanha com o apoio de familiares, amigos e milhares de pessoas que, como tu,
+                        acreditam no poder inabalável da solidariedade. Já realizámos eventos, rifas, ações comunitárias
+                        e vendas beneficentes. Mas a medicação que pode travar o avanço desta doença é de altíssimo
+                        custo.
+                    </p>
+
+                    <p class="story-p">
+                        Temos uma janela de tempo curta para garantir que ele receba a medicação antes que as perdas
+                        musculares sejam irreversíveis. É desesperante saber que a cura existe, mas custa tão caro.
+                    </p>
+
+                    <img src="imagem3.png" alt="Guigui" class="story-img">
+
+
+                    <div class="article-quote">
+                        <p>"Nenhum pai ou mãe deveria ter que colocar um preço na vida do próprio filho. O amor é
+                            infinito, mas infelizmente o tratamento não é."</p>
+                        <span>Pais do Guigui</span>
+                    </div>
+
+                    <p class="story-p">
+                        Cada donativo, cada partilha e cada pequeno gesto de apoio aproxima-nos da cura. <strong>Nós
+                            imploramos pela tua ajuda. Por favor, sê o milagre de que o Guigui tanto precisa.</strong>
+                    </p>
+                </div>
+
+                <div class="steps-section">
+                    <div class="kicker">PLANO DE AÇÃO</div>
+                    <h2 class="article-title" style="margin-bottom: 24px;">4 passos. A tua ajuda é essencial para
+                        transformar a realidade.</h2>
+
+                    <div class="step-item">
+                        <div class="step-number-circle">1</div>
+                        <div class="step-content">
+                            <div class="step-header">
+                                <div class="step-title">Medicação Especializada</div>
+                                <div class="step-tag tag-active">EM CURSO</div>
+                            </div>
+                            <div class="step-desc">Acesso aos medicamentos de alto custo necessários para abrandar a
+                                progressão da doença e preservar a força muscular.</div>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number-circle">2</div>
+                        <div class="step-content">
+                            <div class="step-header">
+                                <div class="step-title">Fisioterapia Intensiva</div>
+                                <div class="step-tag tag-next">PRÓXIMA</div>
+                            </div>
+                            <div class="step-desc">Sessões regulares de reabilitação motora e respiratória para manter a
+                                mobilidade e qualidade de vida.</div>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number-circle">3</div>
+                        <div class="step-content">
+                            <div class="step-header">
+                                <div class="step-title">Acompanhamento Médico</div>
+                                <div class="step-tag tag-next">PRÓXIMA</div>
+                            </div>
+                            <div class="step-desc">Consultas frequentes com equipa multidisciplinar para monitorizar a
+                                evolução clínica do Guigui.</div>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number-circle">4</div>
+                        <div class="step-content">
+                            <div class="step-header">
+                                <div class="step-title">Equipamentos de Apoio</div>
+                                <div class="step-tag tag-next">PRÓXIMA</div>
+                            </div>
+                            <div class="step-desc">Aquisição de dispositivos ortopédicos e adaptações necessárias para
+                                garantir o seu conforto e autonomia.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="opcoes.html" class="btn-donate" style="margin-bottom: 0;" id="cta-btn-bottom">Não Quero Virar
+                    as Costas <i class="fa-solid fa-hand-holding-heart" style="margin-left: 6px;"></i></a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

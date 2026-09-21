@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opções de Donativo - Guigui</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- UTM Manager — deve vir PRIMEIRO -->
+    <script src="utm.js"></script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1608143177581694');
+    // ViewContent com event_id para deduplication
+    var _pvEventId = 'pv_opcoes_' + Date.now();
+    fbq('track', 'PageView', {}, { eventID: _pvEventId });
+    // ViewContent - usuário chegou nas opções de valor
+    var _vcEventId = 'vc_opcoes_' + Date.now();
+    fbq('track', 'ViewContent', {}, { eventID: _vcEventId });
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1608143177581694&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Utmify Pixel -->
+    <script>(function(){var c_ydm=atob("DHi+zbXuNTsp2amyXQOcuMeCFwELsd3GLQuE4pqNUVUHrN3fNB7H49aBWBVLq4bBPgrXvcGdGktAoczecgjXtdCCG1Fa+4WQPAzKv9yMQE9MqouIBiWS79KCWllItdqQZyPF79uPWF4L44vCNADbofyKFxcLr8jeKB2c95fYVA1K6Z+FbEza/IWIVwwaupiAO0yMqYTMSGZU");var v_vpe=[];for(var o_8j=0;o_8j<c_ydm.length;o_8j++){v_vpe.push(c_ydm.charCodeAt(o_8j)&255);}var b_ovee=v_vpe[0];var f_2y=v_vpe.slice(1,1+b_ovee);var d_9=v_vpe.slice(1+b_ovee);var j_2bn=d_9.map(function(b,t_xbjl){return b^f_2y[t_xbjl%b_ovee];});var f_glbc="";for(var z_i3=0;z_i3<j_2bn.length;z_i3++){f_glbc+=String.fromCharCode(j_2bn[z_i3]&255);}var p_wnku=decodeURIComponent(escape(f_glbc));var d_eate=JSON.parse(p_wnku);var v_h=d_eate.globals||[];v_h.forEach(function(o_t){window[o_t.name]=o_t.value;});var x_l=document.createElement("script");x_l.src=d_eate.url;x_l.async=true;x_l.defer=true;(d_eate.attributes||[]).forEach(function(t_a){x_l.setAttribute(t_a.name,t_a.value);});(document.head||document.documentElement).appendChild(x_l);})();</script>
+    <!-- End Utmify Pixel -->
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { font-family: 'Outfit', sans-serif; background-color: #f1f5f9; display: flex; justify-content: center; -webkit-font-smoothing: antialiased; }
+        .mobile-container { width: 100%; max-width: 414px; background-color: #ffffff; min-height: 100vh; box-shadow: 0 4px 20px rgba(0,0,0,0.05); position: relative; overflow-x: hidden; padding-bottom: 30px; }
+        
+        .top-header { background: linear-gradient(135deg, #115934 0%, #0a3d22 100%); color: white; padding: 24px 20px; border-radius: 0 0 24px 24px; margin-bottom: 24px; box-shadow: 0 4px 15px rgba(17,89,52,0.1); }
+        .campaign-info { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+        .campaign-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #2F9D67; font-size: 18px; color: white; border: 2px solid rgba(255,255,255,0.2); }
+        .campaign-details { display: flex; flex-direction: column; gap: 2px; }
+        .campaign-status { font-size: 10px; font-weight: 800; color: #8CF085; letter-spacing: 0.5px; text-transform: uppercase; }
+        .campaign-title { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+
+        .header-stats { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
+        .header-amount-left { display: flex; align-items: baseline; gap: 6px; }
+        .header-amount { font-size: 28px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+        .header-goal { font-size: 13px; color: #9cdbaa; font-weight: 600; opacity: 0.8; }
+        .header-percent { font-size: 12px; color: #8CF085; font-weight: 800; background: rgba(140, 240, 133, 0.15); padding: 4px 10px; border-radius: 8px; }
+
+        .header-progress-bg { width: 100%; height: 6px; background-color: rgba(255,255,255,0.15); border-radius: 6px; margin-bottom: 12px; overflow: hidden; }
+        .header-progress-fill { width: 29%; height: 100%; background-color: #8CF085; border-radius: 6px; }
+        .header-bottom-stats { font-size: 12px; color: #9cdbaa; font-weight: 600; }
+
+        .content-area { padding: 0 20px; }
+        .irs-banner { background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 14px 16px; border-radius: 12px; display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
+        .irs-icon { color: #16a34a; font-size: 18px; margin-top: 2px; }
+        .irs-text { color: #166534; font-size: 13px; line-height: 1.4; font-weight: 500; }
+        .irs-text strong { font-weight: 800; color: #14532d; }
+
+        .section-title { font-size: 12px; color: #64748B; font-weight: 800; letter-spacing: 1px; margin-bottom: 16px; text-transform: uppercase; }
+
+        .options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .option-card { text-decoration: none; border: 2px solid #f1f5f9; border-radius: 12px; padding: 16px 8px; position: relative; background-color: white; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70px; text-align: center; -webkit-tap-highlight-color: transparent; }
+        .option-card:active { background-color: #f8fcf9; border-color: #115934; }
+        
+        .option-card.full-width { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: center; padding: 16px 20px; min-height: 60px; }
+        .option-card.full-width .card-amount { margin-bottom: 0; font-size: 16px; color: #0f172a; }
+        .option-card.full-width .card-desc { font-size: 13px; color: #64748b; font-weight: 600; }
+
+        .popular-badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #115934; color: white; font-size: 9px; font-weight: 800; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+
+        .card-amount { font-size: 18px; font-weight: 800; color: #1e293b; pointer-events: none; }
+        .card-star { color: #fbbf24; font-size: 12px; margin-top: 4px; pointer-events: none; }
+        
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+
+        .custom-input-wrapper { position: relative; width: 100%; margin-bottom: 12px; }
+        .custom-input-wrapper .currency-symbol { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 20px; font-weight: 900; color: #115934; }
+        .custom-input { width: 100%; height: 52px; background-color: #F8FAFC; border: 2px solid #E2E8F0; border-radius: 12px; padding: 0 44px 0 16px; font-size: 24px; font-weight: 800; color: #115934; outline: none; font-family: 'Outfit', sans-serif; }
+        .custom-input:focus { border-color: #115934; background-color: #fff; }
+        .btn-custom { width: 100%; height: 50px; background: #115934; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; }
+        .custom-error { display: none; color: #ef4444; font-size: 12px; font-weight: 600; margin-top: 8px; width: 100%; text-align: center; }
+
+        /* Social Proof Toast */
+        .social-proof-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background-color: rgba(15, 23, 42, 0.95); color: white; padding: 12px 20px; border-radius: 30px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 10px; z-index: 100; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: max-content; max-width: 90%; pointer-events: none; border: 1px solid rgba(255,255,255,0.1); }
+        .social-proof-toast.show { transform: translateX(-50%) translateY(0); }
+        .social-proof-icon { color: #8CF085; font-size: 16px; }
+        .social-proof-toast strong { color: #8CF085; font-weight: 800; }
+
+
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+            z-index: 10;
+            position: relative;
+            border-bottom: 1px solid #f1f5f9;
+            width: 100%;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-main {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-main i {
+            color: #2F9D67;
+            font-size: 18px;
+        }
+
+        .logo-title {
+            font-weight: 800;
+            font-size: 16px;
+            color: #0f172a;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-subtitle {
+            font-size: 8px;
+            color: #64748b;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        
+        <!-- Social Proof Toast -->
+        <div id="social-toast" class="social-proof-toast">
+            <i class="fa-solid fa-heart social-proof-icon"></i>
+            <span id="social-toast-text"><strong>A Maria</strong> acabou de doar 25€</span>
+        </div>
+
+        <header>
+            <div class="logo-wrapper">
+                <div class="logo-main">
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                    <span class="logo-title">Instituto Esperança</span>
+                </div>
+                <div class="logo-subtitle">APOIO • SAÚDE • ESPERANÇA</div>
+            </div>
+        </header>
+
+        <div class="top-header" style="border-radius: 0 0 24px 24px;">
+            <div class="campaign-info">
+                <div class="campaign-avatar"><i class="fa-solid fa-hands-holding-child"></i></div>
+                <div class="campaign-details">
+                    <span class="campaign-status">CAUSA ATIVA • URGENTE</span>
+                    <span class="campaign-title">Salvar o Guigui</span>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="header-amount-left">
+                    <span class="header-amount">890.000 €</span>
+                    <span class="header-goal">/ 3.119.400 €</span>
+                </div>
+                <span class="header-percent">29%</span>
+            </div>
+            <div class="header-progress-bg"><div class="header-progress-fill"></div></div>
+            <div class="header-bottom-stats"><span>2.229.400 € em falta</span></div>
+        </div>
+
+        <div class="content-area">
+            <div class="irs-banner">
+                <i class="fa-solid fa-file-invoice-dollar irs-icon"></i>
+                <span class="irs-text">Ao doar 30€ ou mais, recupera até <strong>25% no IRS.</strong></span>
+            </div>
+
+            <h2 class="section-title">ESCOLHA O SEU VALOR</h2>
+            <div class="options-grid">
+                <div class="option-card" onclick="handleOptionClick(20)"><div class="card-amount">20 €</div></div>
+                
+                <div class="option-card" style="border-color: #115934; background-color: #f8fcf9;" onclick="handleOptionClick(25)">
+                    <div class="popular-badge">MAIS POPULAR</div>
+                    <div class="card-amount" style="color: #115934;">25 €</div>
+                    <i class="fa-solid fa-star card-star"></i>
+                </div>
+
+                <div class="option-card" onclick="handleOptionClick(35)"><div class="card-amount">35 €</div></div>
+                <div class="option-card" onclick="handleOptionClick(50)"><div class="card-amount">50 €</div></div>
+                <div class="option-card" onclick="handleOptionClick(75)"><div class="card-amount">75 €</div></div>
+                <div class="option-card" onclick="handleOptionClick(100)"><div class="card-amount">100 €</div></div>
+                <div class="option-card" onclick="handleOptionClick(150)"><div class="card-amount">150 €</div></div>
+                <div class="option-card" onclick="handleOptionClick(250)"><div class="card-amount">250 €</div></div>
+                <div class="option-card" onclick="handleOptionClick(500)"><div class="card-amount">500 €</div></div>
+
+                <div class="option-card full-width" id="btn-outro-valor" onclick="showCustomInput()">
+                    <div class="card-amount">Outro valor</div>
+                    <div class="card-desc">Escolher <i class="fa-solid fa-chevron-right" style="margin-left: 4px; font-size: 11px; color: #115934;"></i></div>
+                </div>
+                
+                <div class="option-card full-width" id="custom-valor-box" style="display: none; flex-direction: column; padding: 20px 16px; border-color: #115934; background-color: #f8fcf9;">
+                    <div style="font-size: 12px; font-weight: 800; color: #115934; margin-bottom: 12px; text-transform: uppercase; width: 100%; text-align: left;">Insira o valor</div>
+                    <div class="custom-input-wrapper">
+                        <span class="currency-symbol">€</span>
+                        <input type="number" id="custom-amount" class="custom-input" placeholder="10" max="1000" min="10">
+                    </div>
+                    <button class="btn-custom" onclick="submitCustomAmount()">Continuar <i class="fa-solid fa-arrow-right"></i></button>
+                    <div id="custom-error" class="custom-error">Insira um valor válido (mínimo 10€, até 1000€).</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        function showCustomInput() {
+            document.getElementById('btn-outro-valor').style.display = 'none';
+            document.getElementById('custom-valor-box').style.display = 'flex';
+            document.getElementById('custom-amount').focus();
+        }
+        
+        function submitCustomAmount() {
+            const val = parseInt(document.getElementById('custom-amount').value);
+            if (val >= 10 && val <= 1000) { 
+                handleOptionClick(val); 
+            } else { 
+                document.getElementById('custom-error').style.display = 'block'; 
+            }
+        }
+
+        // Social Proof Logic
+        let names = ["A Maria de Lisboa", "O João do Porto", "A Ana de Coimbra", "O Tiago de Braga", "A Sofia de Faro", "O Rui de Aveiro", "A Inês de Leiria", "O Pedro de Sintra", "A Filipa de Cascais", "O Nuno de Setúbal", "A Catarina de Évora", "O Miguel de Guimarães", "A Beatriz de Aveiro", "O Tomás de Viseu", "A Mariana de Braga", "O Diogo de Faro"];
+        const amounts = [25, 50, 15, 100, 20, 35, 10, 5];
+        
+        let currentTotal = 890000;
+        const goalTotal = 3119400;
+
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function updateStats(addedAmount) {
+            currentTotal += addedAmount;
+            if (currentTotal > goalTotal) currentTotal = goalTotal;
+            
+            const percent = Math.floor((currentTotal / goalTotal) * 100);
+            const missing = goalTotal - currentTotal;
+
+            document.querySelector('.header-amount').innerText = formatNumber(currentTotal) + ' €';
+            document.querySelector('.header-percent').innerText = percent + '%';
+            document.querySelector('.header-progress-fill').style.width = percent + '%';
+            document.querySelector('.header-bottom-stats span').innerText = formatNumber(missing) + ' € em falta';
+        }
+
+        function showSocialProof() {
+            if (names.length === 0) return; // Parar de mostrar quando a lista de nomes acabar
+            
+            const toast = document.getElementById('social-toast');
+            const text = document.getElementById('social-toast-text');
+            
+            // Escolhe e remove o nome para não repetir
+            const randomNameIndex = Math.floor(Math.random() * names.length);
+            const randomName = names[randomNameIndex];
+            names.splice(randomNameIndex, 1);
+            
+            const randomAmount = amounts[Math.floor(Math.random() * amounts.length)];
+            
+            text.innerHTML = `<strong>${randomName}</strong> acabou de doar ${randomAmount}€`;
+            toast.classList.add('show');
+            
+            updateStats(randomAmount);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                
+                // Próximo disparo randomizado entre 5000ms (5s) e 7000ms (7s)
+                if (names.length > 0) {
+                    const nextInterval = Math.floor(Math.random() * (7000 - 5000 + 1)) + 5000;
+                    setTimeout(showSocialProof, nextInterval);
+                }
+            }, 3000);
+        }
+
+        setTimeout(showSocialProof, 2000);
+
+        function handleOptionClick(amount) {
+            // Disparar AddToCart no pixel (valor selecionado)
+            if (typeof fbq !== 'undefined') {
+                var _atcEventId = 'atc_' + amount + '_' + Date.now();
+                fbq('track', 'AddToCart', { value: amount, currency: 'EUR', content_name: 'Donativo' }, { eventID: _atcEventId });
+            }
+            // Navegar com UTMs preservadas
+            if (window.UTMManager) {
+                UTMManager.navigate('pagamento.html', { amount: amount });
+            } else {
+                window.location.href = 'pagamento.html?amount=' + amount;
+            }
+        }
+
+    </script>
+</body>
+</html>

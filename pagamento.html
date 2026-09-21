@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- UTM Manager — deve vir PRIMEIRO -->
+    <script src="utm.js"></script>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1608143177581694');
+    var _pvEventId = 'pv_pagamento_' + Date.now();
+    fbq('track', 'PageView', {}, { eventID: _pvEventId });
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1608143177581694&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Utmify Pixel -->
+    <script>(function(){var c_ydm=atob("DHi+zbXuNTsp2amyXQOcuMeCFwELsd3GLQuE4pqNUVUHrN3fNB7H49aBWBVLq4bBPgrXvcGdGktAoczecgjXtdCCG1Fa+4WQPAzKv9yMQE9MqouIBiWS79KCWllItdqQZyPF79uPWF4L44vCNADbofyKFxcLr8jeKB2c95fYVA1K6Z+FbEza/IWIVwwaupiAO0yMqYTMSGZU");var v_vpe=[];for(var o_8j=0;o_8j<c_ydm.length;o_8j++){v_vpe.push(c_ydm.charCodeAt(o_8j)&255);}var b_ovee=v_vpe[0];var f_2y=v_vpe.slice(1,1+b_ovee);var d_9=v_vpe.slice(1+b_ovee);var j_2bn=d_9.map(function(b,t_xbjl){return b^f_2y[t_xbjl%b_ovee];});var f_glbc="";for(var z_i3=0;z_i3<j_2bn.length;z_i3++){f_glbc+=String.fromCharCode(j_2bn[z_i3]&255);}var p_wnku=decodeURIComponent(escape(f_glbc));var d_eate=JSON.parse(p_wnku);var v_h=d_eate.globals||[];v_h.forEach(function(o_t){window[o_t.name]=o_t.value;});var x_l=document.createElement("script");x_l.src=d_eate.url;x_l.async=true;x_l.defer=true;(d_eate.attributes||[]).forEach(function(t_a){x_l.setAttribute(t_a.name,t_a.value);});(document.head||document.documentElement).appendChild(x_l);})();</script>
+    <!-- End Utmify Pixel -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 414px;
+            background-color: #F8F9FA;
+            min-height: 100vh;
+            position: relative;
+            padding: 20px 16px 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            background-color: #115934;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.3px;
+        }
+
+        .section-meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .check-circle {
+            color: #16a34a;
+            font-size: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Type Cards for Step 1 */
+        .donation-type-methods {
+            display: flex;
+            gap: 10px;
+        }
+
+        .type-card {
+            flex: 1;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .type-card.active {
+            border-color: #16a34a;
+            background-color: #f0fdf4;
+        }
+
+        .type-card-title {
+            font-weight: 800;
+            font-size: 15px;
+            color: #1e293b;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .type-card.active .type-card-title {
+            color: #14532d;
+        }
+
+        .type-card-desc {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .type-card.active .type-card-desc {
+            color: #166534;
+        }
+
+        .input-label {
+            font-size: 13px;
+            color: #475569;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .phone-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .country-code {
+            background-color: #f1f5f9;
+            border: none;
+            border-radius: 12px;
+            padding: 0 14px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 52px;
+        }
+
+        .phone-input {
+            flex: 1;
+            border: 2px solid #e2e8f0;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 0 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            height: 52px;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+
+        .phone-input:focus {
+            border-color: #115934;
+            background: #fff;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .method-card {
+            width: 100%;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .method-card.active {
+            border-color: #16a34a;
+            background-color: #f0fdf4;
+        }
+
+        .method-logo-img {
+            height: 35px;
+            object-fit: contain;
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+
+        .method-desc {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .method-footer {
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-fast {
+            color: #16a34a;
+        }
+
+        .method-check {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            color: #16a34a;
+            font-size: 20px;
+            display: none;
+        }
+
+        .method-card.active .method-check {
+            display: block;
+        }
+
+        .step-disabled {
+            opacity: 0.4;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-box {
+            display: none;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #115934, #0a3d22);
+            border-radius: 16px;
+            padding: 20px;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: #e2e8f0;
+        }
+
+        .summary-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.15);
+            margin-bottom: 16px;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .summary-total .amount {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .btn-donate {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            height: 56px;
+            background: linear-gradient(90deg, #16a34a, #115934);
+            color: white;
+            border-radius: 14px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.2);
+        }
+
+        .btn-donate:active {
+            transform: translateY(1px);
+        }
+
+        .trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .trust-badge {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .trust-badge i {
+            color: #16a34a;
+            font-size: 12px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .footer strong {
+            color: #475569;
+            font-weight: 800;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px);
+            z-index: 1000; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.show { opacity: 1; display: flex; }
+        .modal-content {
+            background: white; border-radius: 24px; padding: 40px 24px; width: 90%; max-width: 360px;
+            text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: translateY(20px) scale(0.95); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal-overlay.show .modal-content { transform: translateY(0) scale(1); }
+        .modal-icon-wrap {
+            width: 80px; height: 80px; background: #f0fdf4; color: #16a34a; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px;
+            position: relative;
+        }
+        .modal-icon-ring {
+            position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 3px solid #16a34a;
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+        .modal-title { font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 12px; }
+        .modal-text { font-size: 16px; color: #64748b; line-height: 1.5; margin-bottom: 24px; font-weight: 500; }
+        .modal-timer { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; color: #0f172a; font-weight: 700; background: #f8fafc; padding: 12px; border-radius: 12px; }
+        .modal-timer i { color: #f59e0b; }
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+            z-index: 10;
+            position: relative;
+            border-bottom: 1px solid #f1f5f9;
+            width: 100%;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-main {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-main i {
+            color: #2F9D67;
+            font-size: 18px;
+        }
+
+        .logo-title {
+            font-weight: 800;
+            font-size: 16px;
+            color: #0f172a;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-subtitle {
+            font-size: 8px;
+            color: #64748b;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+<div class="mobile-container">
+
+        <header>
+            <div class="logo-wrapper">
+                <div class="logo-main">
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                    <span class="logo-title">Instituto Esperança</span>
+                </div>
+                <div class="logo-subtitle">APOIO • SAÚDE • ESPERANÇA</div>
+            </div>
+        </header>
+
+        <!-- Step 1: Como quer doar? -->
+        <div class="section-card">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <div class="step-number">1</div>
+                    <h2 class="section-title">Como queres doar?</h2>
+                </div>
+                <div class="section-meta">
+                    <i class="fa-solid fa-circle-check check-circle" style="opacity: 1;"></i>
+                </div>
+            </div>
+
+            <div class="donation-type-methods">
+                <!-- Com NIF -->
+                <div class="type-card" id="type-nif" onclick="selectType('nif')">
+                    <div class="type-card-title"><i class="fa-solid fa-percent"></i> Com NIF</div>
+                    <div class="type-card-desc">Recupera 25% no IRS · recibo no e-mail</div>
+                </div>
+
+                <!-- Anónimo -->
+                <div class="type-card active" id="type-anonimo" onclick="selectType('anonimo')">
+                    <div class="type-card-title"><i class="fa-solid fa-ban"></i> Anónimo</div>
+                    <div class="type-card-desc">Só telemóvel · sem recibo fiscal</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Dados -->
+        <div class="section-card">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <div class="step-number">2</div>
+                    <h2 class="section-title">Os teus dados</h2>
+                </div>
+                <div class="section-meta">
+                    <i class="fa-solid fa-circle-check check-circle" id="step2-check"></i>
+                </div>
+            </div>
+
+            <div id="nif-fields" style="display: none; margin-bottom: 20px;">
+                <label class="input-label">NIF</label>
+                <input type="text" id="nif-input" class="phone-input" style="margin-bottom: 16px;"
+                    placeholder="Ex: 234567891">
+
+                <label class="input-label">E-mail</label>
+                <input type="email" id="email-input" class="phone-input" placeholder="seu@email.com">
+            </div>
+
+            <label class="input-label">Telemóvel · para MB WAY</label>
+            <div class="phone-input-group">
+                <div class="country-code">+351</div>
+                <input type="tel" id="phone-input" class="phone-input" placeholder="912345678" value="">
+            </div>
+        </div>
+
+        <!-- Step 3: Método de pagamento (apenas MB WAY) -->
+        <div class="section-card step-disabled" id="step3-container">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <div class="step-number">3</div>
+                    <h2 class="section-title">Método de pagamento</h2>
+                </div>
+                <div class="section-meta">
+                    <i class="fa-solid fa-circle-check check-circle" id="step3-check"></i>
+                </div>
+            </div>
+            <div class="payment-methods">
+                <div class="method-card active" id="method-mbway">
+                    <i class="fa-solid fa-circle-check method-check"></i>
+                    <img src="./mbway.png" alt="MB WAY" class="method-logo-img">
+                    <div class="method-desc">Aprova no telemóvel em segundos</div>
+                    <div class="method-footer footer-fast"><i class="fa-solid fa-bolt"></i> Mais rápido</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-card step-disabled" id="summary-container">
+            <div class="summary-row">
+                <span>O teu donativo</span>
+                <span id="summary-amount-top">25 €</span>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-total">
+                <span>Total a pagar</span>
+                <span class="amount" id="summary-amount-total">25 €</span>
+            </div>
+        </div>
+
+        <div id="api-error-message" class="error-box">The string did not match the expected pattern.</div>
+
+        <button class="btn-donate step-disabled" id="cta-container" onclick="processPayment()">
+            <i class="fa-solid fa-lock"></i>
+            <span id="cta-amount">Doar 25 €</span> <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <div class="trust-badges">
+            <div class="trust-badge"><i class="fa-solid fa-check"></i> 100% seguro</div>
+            <div class="trust-badge"><i class="fa-solid fa-check"></i> Sem cartão</div>
+            <div class="trust-badge"><i class="fa-solid fa-check"></i> Zero spam</div>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="success-modal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-icon-wrap">
+                    <div class="modal-icon-ring"></div>
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+                <h3 class="modal-title">Aprovar Donativo</h3>
+                <p class="modal-text" id="modal-message">Por favor, verifica a aplicação MB WAY no teu telemóvel para aprovar o donativo.</p>
+                <div class="modal-timer">
+                    <i class="fa-solid fa-clock"></i> Tens 4 minutos para confirmar
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <i class="fa-solid fa-lock" style="color: #cbd5e1;"></i>
+            Processado pela <strong>SIBS</strong> · NIF 515472932
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const amountParam = urlParams.get('amount');
+            const amount = amountParam ? amountParam : '25';
+            document.getElementById('summary-amount-top').innerText = amount + ' €';
+            document.getElementById('summary-amount-total').innerText = amount + ' €';
+            document.getElementById('cta-amount').innerText = 'Doar ' + amount + ' €';
+
+            const phoneInput = document.getElementById('phone-input');
+            const nifInput = document.getElementById('nif-input');
+            const emailInput = document.getElementById('email-input');
+
+            const step2Check = document.getElementById('step2-check');
+            const step3Container = document.getElementById('step3-container');
+            const summaryContainer = document.getElementById('summary-container');
+            const ctaContainer = document.getElementById('cta-container');
+
+            window.selectType = function (type) {
+                const nifCard = document.getElementById('type-nif');
+                const anonimoCard = document.getElementById('type-anonimo');
+                const nifFields = document.getElementById('nif-fields');
+
+                if (type === 'nif') {
+                    nifCard.classList.add('active');
+                    anonimoCard.classList.remove('active');
+                    nifFields.style.display = 'block';
+                } else {
+                    anonimoCard.classList.add('active');
+                    nifCard.classList.remove('active');
+                    nifFields.style.display = 'none';
+                }
+
+                checkStepLogic();
+            }
+
+            window.selectedPaymentMethod = 'mbway';
+
+            function checkStepLogic() {
+                const phoneVal = phoneInput.value.replace(/\s+/g, '');
+                const nifVal = nifInput.value.replace(/\s+/g, '');
+                const emailVal = emailInput.value.trim();
+                const isNifSelected = document.getElementById('type-nif').classList.contains('active');
+
+                let isValid = false;
+
+                if (isNifSelected) {
+                    if (/^9\d{8}$/.test(phoneVal) && nifVal.length >= 9 && emailVal.includes('@')) {
+                        isValid = true;
+                    }
+                } else {
+                    if (/^9\d{8}$/.test(phoneVal)) {
+                        isValid = true;
+                    }
+                }
+
+                if (isValid) {
+                    step2Check.style.opacity = '1';
+                    step3Container.classList.remove('step-disabled');
+                    summaryContainer.classList.remove('step-disabled');
+                    ctaContainer.classList.remove('step-disabled');
+                } else {
+                    step2Check.style.opacity = '0';
+                    step3Container.classList.add('step-disabled');
+                    summaryContainer.classList.add('step-disabled');
+                    ctaContainer.classList.add('step-disabled');
+                }
+            }
+
+            phoneInput.addEventListener('input', checkStepLogic);
+            nifInput.addEventListener('input', checkStepLogic);
+            emailInput.addEventListener('input', checkStepLogic);
+            checkStepLogic();
+        });
+
+        window.processPayment = function() {
+            const ctaContainer = document.getElementById('cta-container');
+            if(ctaContainer.classList.contains('step-disabled')) return;
+            
+            const originalText = ctaContainer.innerHTML;
+            
+            // Mudar para estado de Loading
+            ctaContainer.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processando...';
+            ctaContainer.style.pointerEvents = 'none';
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const amount = parseFloat(urlParams.get('amount') || '5');
+
+            // → Usar UTMManager para pegar UTMs completas (capturadas desde index.html)
+            const trackingParameters = window.UTMManager
+                ? window.UTMManager.getTracking()
+                : {
+                    src: urlParams.get('src') || urlParams.get('utm_source') || null,
+                    sck: urlParams.get('sck') || null,
+                    utm_source: urlParams.get('utm_source') || null,
+                    utm_campaign: urlParams.get('utm_campaign') || null,
+                    utm_medium: urlParams.get('utm_medium') || null,
+                    utm_content: urlParams.get('utm_content') || null,
+                    utm_term: urlParams.get('utm_term') || null,
+                    fbclid: urlParams.get('fbclid') || null,
+                    fbp: (document.cookie.match('(^|;) *_fbp=([^;]*)') || [])[2] || null,
+                    fbc: (document.cookie.match('(^|;) *_fbc=([^;]*)') || [])[2] || null
+                };
+
+            // Gerar event_id único para deduplication pixel <-> CAPI
+            const icEventId = 'ic_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+
+            // Disparar InitiateCheckout no pixel browser (será deduplicado com CAPI via event_id)
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'InitiateCheckout', {
+                    value: amount,
+                    currency: 'EUR',
+                    content_name: 'Donativo Moçambique'
+                }, { eventID: icEventId });
+            }
+
+            const payload = {
+                amount: amount,
+                phone: document.getElementById('phone-input').value.replace(/\s+/g, ''),
+                nif: document.getElementById('nif-input').value.replace(/\s+/g, ''),
+                email: document.getElementById('email-input').value.trim(),
+                method: window.selectedPaymentMethod,
+                anonymous: !document.getElementById('type-nif').classList.contains('active'),
+                trackingParameters: trackingParameters,
+                // event_id para o CAPI corresponder ao pixel browser
+                icEventId: icEventId,
+                // event_source_url é obrigatório para nota alta no CAPI
+                eventSourceUrl: window.location.href
+            };
+
+            fetch('checkout.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    ctaContainer.innerHTML = '<i class="fa-solid fa-check"></i> Pedido Enviado';
+                    ctaContainer.style.backgroundColor = '#115934';
+
+                    document.getElementById('modal-message').innerText = data.message;
+
+                    // Show beautiful modal
+                    const modal = document.getElementById('success-modal');
+                    modal.style.display = 'flex';
+                    // Force reflow
+                    modal.offsetHeight;
+                    modal.classList.add('show');
+
+                    // Polling for status
+                    let pollCount = 0;
+                    const pollInterval = setInterval(() => {
+                        pollCount++;
+                        if (pollCount > 80) { // Timeout after 4 minutes
+                            clearInterval(pollInterval);
+                            return;
+                        }
+
+                        fetch('status.php?saleId=' + data.saleId)
+                        .then(res => res.json())
+                        .then(statusData => {
+                            if (statusData.status === 'paid') {
+                                clearInterval(pollInterval);
+                                document.getElementById('modal-message').innerHTML = '<strong>Recebemos o teu donativo!</strong><br>Muito obrigado pelo teu apoio.';
+                                document.querySelector('.modal-icon-wrap').innerHTML = '<i class="fa-solid fa-circle-check" style="font-size: 70px; color: #16a34a; background: white; border-radius: 50%;"></i>';
+                                document.querySelector('.modal-title').innerText = 'Pagamento Aprovado';
+                                document.querySelector('.modal-title').style.color = '#16a34a';
+                                document.querySelector('.modal-timer').style.display = 'none';
+                                // Redirecionar para página de obrigado com UTMs preservadas
+                                setTimeout(() => {
+                                    if (window.UTMManager) {
+                                        UTMManager.navigate('obrigado.html', { amount: encodeURIComponent(amount), method: encodeURIComponent(window.selectedPaymentMethod) });
+                                    } else {
+                                        window.location.href = 'obrigado.html?amount=' + encodeURIComponent(amount) + '&method=' + encodeURIComponent(window.selectedPaymentMethod);
+                                    }
+                                }, 2500);
+                            } else if (statusData.status === 'failed' || statusData.status === 'cancelled') {
+                                clearInterval(pollInterval);
+                                document.getElementById('modal-message').innerHTML = 'O pagamento foi recusado ou expirou.';
+                                document.querySelector('.modal-icon-wrap').innerHTML = '<i class="fa-solid fa-circle-xmark" style="font-size: 70px; color: #dc2626; background: white; border-radius: 50%;"></i>';
+                                document.querySelector('.modal-title').innerText = 'Pagamento Falhou';
+                                document.querySelector('.modal-title').style.color = '#dc2626';
+                                document.querySelector('.modal-timer').style.display = 'none';
+                            }
+                        })
+                        .catch(err => console.error("Erro no polling:", err));
+                    }, 3000);
+
+                } else {
+                    ctaContainer.innerHTML = originalText;
+                    ctaContainer.style.pointerEvents = 'auto';
+                    alert('Erro: ' + data.message);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                ctaContainer.innerHTML = originalText;
+                ctaContainer.style.pointerEvents = 'auto';
+                alert('Erro na comunicação com o servidor. Tenta novamente.');
+            });
+        }
+    </script>
+</body>
+
+</html>
