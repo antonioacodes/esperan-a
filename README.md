@@ -22,6 +22,8 @@ O PHP lê o arquivo automaticamente no caminho acima, sem necessidade de configu
 
 ## Publicação e validação
 
+Para testar a interface sem preencher dados, abra `pagamento.html?amount=25&demo=1`. O botão fica disponível e mostra uma demonstração claramente identificada. Nesse modo, o navegador não chama `checkout.php`, não envia pedido à SIBS e não registra evento de checkout. Para testar um pagamento real no sandbox SIBS, abra a página sem `demo=1` e informe um telemóvel MB WAY de teste válido.
+
 O alojamento precisa executar PHP com a extensão cURL e TLS 1.2+. Publique `checkout.php`, `status.php` e `sibs.php` junto com as páginas HTML. Faça um pagamento de teste no simulador SIBS e confirme que a aprovação no MB WAY leva à página `obrigado.html`.
 
 Para produção, configure também a Merchant Notification/webhook no Backoffice SIBS para reconciliação. O polling do checkout é mantido para a experiência imediata do doador, mas a notificação é o mecanismo recomendado para o ciclo assíncrono.

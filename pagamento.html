@@ -491,6 +491,10 @@
             </div>
         </header>
 
+        <div id="demo-banner" class="section-card" style="display: none; background: #fff7ed; color: #9a3412; font-weight: 700; text-align: center;">
+            Modo demonstração: nenhum pagamento será enviado à SIBS.
+        </div>
+
         <!-- Step 1: Como quer doar? -->
         <div class="section-card">
             <div class="section-header">
@@ -519,7 +523,7 @@
         </div>
 
         <!-- Step 2: Dados -->
-        <div class="section-card">
+        <div class="section-card" id="customer-data-card">
             <div class="section-header">
                 <div class="section-title-wrap">
                     <div class="step-number">2</div>
@@ -604,6 +608,7 @@
                 <div class="modal-timer">
                     <i class="fa-solid fa-clock"></i> Tens 4 minutos para confirmar
                 </div>
+                <button type="button" id="demo-close" onclick="closeDemo()" style="display: none; margin-top: 20px; padding: 12px 24px; border: 0; border-radius: 10px; background: #115934; color: white; font-weight: 700; cursor: pointer;">Fechar demonstração</button>
             </div>
         </div>
 
@@ -613,6 +618,14 @@
         </div>
     </div>
     <script>
+        const demoMode = new URLSearchParams(window.location.search).get('demo') === '1';
+
+        window.closeDemo = function () {
+            const modal = document.getElementById('success-modal');
+            modal.classList.remove('show');
+            modal.style.display = 'none';
+        };
+
         document.addEventListener("DOMContentLoaded", function () {
             const urlParams = new URLSearchParams(window.location.search);
             const amountParam = urlParams.get('amount');
@@ -629,6 +642,16 @@
             const step3Container = document.getElementById('step3-container');
             const summaryContainer = document.getElementById('summary-container');
             const ctaContainer = document.getElementById('cta-container');
+
+            if (demoMode) {
+                document.getElementById('demo-banner').style.display = 'block';
+                document.getElementById('customer-data-card').style.display = 'none';
+                document.getElementById('step2-check').style.opacity = '1';
+                step3Container.classList.remove('step-disabled');
+                summaryContainer.classList.remove('step-disabled');
+                ctaContainer.classList.remove('step-disabled');
+                document.getElementById('cta-amount').innerText = 'Testar checkout';
+            }
 
             window.selectType = function (type) {
                 const nifCard = document.getElementById('type-nif');
@@ -651,6 +674,7 @@
             window.selectedPaymentMethod = 'mbway';
 
             function checkStepLogic() {
+                if (demoMode) return;
                 const phoneVal = phoneInput.value.replace(/\s+/g, '');
                 const nifVal = nifInput.value.replace(/\s+/g, '');
                 const emailVal = emailInput.value.trim();
@@ -690,6 +714,18 @@
         window.processPayment = function() {
             const ctaContainer = document.getElementById('cta-container');
             if(ctaContainer.classList.contains('step-disabled')) return;
+
+            if (demoMode) {
+                document.querySelector('.modal-title').innerText = 'Demonstração do checkout';
+                document.getElementById('modal-message').innerText = 'Este é apenas um teste visual. Nenhum pedido foi enviado à SIBS e nenhum pagamento foi efetuado.';
+                document.querySelector('.modal-timer').style.display = 'none';
+                document.getElementById('demo-close').style.display = 'inline-block';
+                const modal = document.getElementById('success-modal');
+                modal.style.display = 'flex';
+                modal.offsetHeight;
+                modal.classList.add('show');
+                return;
+            }
             
             const originalText = ctaContainer.innerHTML;
             
