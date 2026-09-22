@@ -13,11 +13,17 @@ try {
     $config = sibs_config();
     if (!function_exists('curl_init')) throw new RuntimeException('Extensão cURL ausente.');
     $secret = sibs_setting('SIBS_CLIENT_SECRET');
-    $url = $config['base_url'] . '/payments/auth-probe-' . bin2hex(random_bytes(8)) . '/status';
+    $environments = ['configured' => $config['base_url']];
+    $productionUrl = 'https://api.sibspayments.com/api/v2';
+    if (rtrim($config['base_url'], '/') !== $productionUrl) {
+        $environments['production'] = $productionUrl;
+    }
 
-    foreach (['documented' => false, 'with_client_secret' => true] as $label => $withSecret) {
+    foreach ($environments as $environment => $baseUrl) {
+        $url = $baseUrl . '/payments/auth-probe-' . bin2hex(random_bytes(8)) . '/status';
+        foreach (['documented' => false, 'with_client_secret' => true] as $label => $withSecret) {
         if ($withSecret && $secret === '') {
-            echo "with_client_secret: não configurado\n";
+            echo $environment . '/with_client_secret: não configurado' . "\n";
             continue;
         }
         $headers = [
@@ -39,9 +45,10 @@ try {
         $curlError = curl_error($curl);
         curl_close($curl);
         if ($response === false) {
-            echo $label . ': erro de rede (' . $curlError . ")\n";
+            echo $environment . '/' . $label . ': erro de rede (' . $curlError . ")\n";
         } else {
-            echo $label . ': HTTP ' . $httpCode . "\n";
+            echo $environment . '/' . $label . ': HTTP ' . $httpCode . "\n";
+        }
         }
     }
     echo "Este teste apenas consulta uma transação inexistente; nenhum pagamento é criado.\n";
