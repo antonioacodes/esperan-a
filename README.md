@@ -4,7 +4,7 @@ O checkout envia a criação do pagamento para `checkout.php`; as credenciais SI
 
 ## Configuração no servidor
 
-Na VPS, crie `/home/acodes-406/private/sibs.env`, fora de `htdocs`, com estas linhas:
+O arquivo `sibs.env.example` está versionado no GitHub sem segredos. Na VPS, copie-o para `/home/acodes-406/private/sibs.env`, fora de `htdocs`, e substitua os valores de exemplo:
 
 ```text
 SIBS_API_BASE_URL=https://URL-DA-API-SIBS
