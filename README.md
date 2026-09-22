@@ -20,6 +20,8 @@ O usuário que executa o PHP deve ter permissão para ler `sibs.env` e escrever 
 
 O PHP lê o arquivo automaticamente no caminho acima, sem necessidade de configurar o pool PHP-FPM ou reiniciar o serviço. Se mudar o local do arquivo, defina a variável de ambiente `SIBS_ENV_FILE` com o caminho absoluto. Variáveis SIBS definidas no ambiente do PHP têm prioridade sobre o arquivo. Nunca coloque `sibs.env` ou um token em `htdocs` ou no Git.
 
+Se a SIBS devolver `HTTP 401`, execute `php /home/acodes-406/htdocs/406.acodes.pro/scripts/diagnose-auth.php` na VPS. O comando consulta somente o status de uma transação inexistente e mostra os códigos HTTP sem exibir credenciais. Opcionalmente, preencha `SIBS_CLIENT_SECRET` no arquivo privado para comparar a autenticação com e sem esse cabeçalho. O checkout continua usando os cabeçalhos documentados pela SIBS v2 até que o resultado indique o contrário.
+
 ## Publicação e validação
 
 Para testar a interface sem preencher dados, abra `pagamento.html?amount=25&demo=1`. O botão fica disponível e mostra uma demonstração claramente identificada. Nesse modo, o navegador não chama `checkout.php`, não envia pedido à SIBS e não registra evento de checkout. Para testar um pagamento real no sandbox SIBS, abra a página sem `demo=1` e informe um telemóvel MB WAY de teste válido.

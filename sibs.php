@@ -39,7 +39,7 @@ function sibs_environment(): array {
     }
     $lines = file($realPath, FILE_IGNORE_NEW_LINES);
     if ($lines === false) throw new RuntimeException('Não foi possível ler o arquivo SIBS.');
-    $allowed = ['SIBS_API_BASE_URL', 'SIBS_CLIENT_ID', 'SIBS_AUTH_TOKEN', 'SIBS_TERMINAL_ID', 'SIBS_STORAGE_DIR'];
+    $allowed = ['SIBS_API_BASE_URL', 'SIBS_CLIENT_ID', 'SIBS_CLIENT_SECRET', 'SIBS_AUTH_TOKEN', 'SIBS_TERMINAL_ID', 'SIBS_STORAGE_DIR'];
     foreach ($lines as $line) {
         $line = trim($line);
         if ($line === '' || $line[0] === '#') continue;
