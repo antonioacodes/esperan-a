@@ -2,3 +2,4 @@
 var/sibs-transactions/*.json
 !var/sibs-transactions/.gitkeep
 .env
+*.env
