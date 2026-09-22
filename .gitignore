@@ -1,0 +1,4 @@
+# Runtime payment records: keep outside version control and restrict server access.
+var/sibs-transactions/*.json
+!var/sibs-transactions/.gitkeep
+.env
