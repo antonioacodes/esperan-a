@@ -22,18 +22,46 @@ try {
     foreach ($environments as $environment => $baseUrl) {
         $url = $baseUrl . '/payments/auth-probe-' . bin2hex(random_bytes(8)) . '/status';
         foreach (['documented' => false, 'with_client_secret' => true] as $label => $withSecret) {
-        if ($withSecret && $secret === '') {
-            echo $environment . '/with_client_secret: não configurado' . "\n";
-            continue;
+            if ($withSecret && $secret === '') {
+                echo $environment . '/with_client_secret: não configurado' . "\n";
+                continue;
+            }
+            $headers = [
+                'Accept: application/json',
+                'X-IBM-Client-Id: ' . $config['client_id'],
+                'Authorization: Bearer ' . $config['auth_token'],
+            ];
+            if ($withSecret) $headers[] = 'X-IBM-Client-Secret: ' . $secret;
+            $curl = curl_init($url);
+            curl_setopt_array($curl, [
+                CURLOPT_HTTPHEADER => $headers,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT => 15,
+                CURLOPT_CONNECTTIMEOUT => 10,
+                CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2,
+            ]);
+            $response = curl_exec($curl);
+            $httpCode = (int) curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+            $curlError = curl_error($curl);
+            curl_close($curl);
+            if ($response === false) {
+                echo $environment . '/' . $label . ': erro de rede (' . $curlError . ")\n";
+            } else {
+                echo $environment . '/' . $label . ': HTTP ' . $httpCode . "\n";
+            }
         }
+        // An empty JSON object cannot create a checkout: merchant and transaction are mandatory.
+        // A 400 here indicates the request got past authentication to payload validation.
         $headers = [
             'Accept: application/json',
+            'Content-Type: application/json',
             'X-IBM-Client-Id: ' . $config['client_id'],
             'Authorization: Bearer ' . $config['auth_token'],
         ];
-        if ($withSecret) $headers[] = 'X-IBM-Client-Secret: ' . $secret;
-        $curl = curl_init($url);
+        $curl = curl_init($baseUrl . '/payments');
         curl_setopt_array($curl, [
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => '{}',
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 15,
@@ -45,13 +73,12 @@ try {
         $curlError = curl_error($curl);
         curl_close($curl);
         if ($response === false) {
-            echo $environment . '/' . $label . ': erro de rede (' . $curlError . ")\n";
+            echo $environment . '/invalid_checkout: erro de rede (' . $curlError . ")\n";
         } else {
-            echo $environment . '/' . $label . ': HTTP ' . $httpCode . "\n";
-        }
+            echo $environment . '/invalid_checkout: HTTP ' . $httpCode . "\n";
         }
     }
-    echo "Este teste apenas consulta uma transação inexistente; nenhum pagamento é criado.\n";
+    echo "Este teste consulta uma transação inexistente e envia um checkout sem dados obrigatórios; nenhum pagamento MB WAY é solicitado.\n";
 } catch (Throwable $error) {
     echo 'Configuração local: ' . $error->getMessage() . "\n";
     exit(1);
